@@ -1,0 +1,16 @@
+name: Build Yoi Themes
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/ps3dev/psl1ght:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: make
+      - name: Upload PKG
+        uses: actions/upload-artifact@v4
+        with:
+          name: YoiThemes-pkg
+          path: "*.pkg"
