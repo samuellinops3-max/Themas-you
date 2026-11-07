@@ -1,0 +1,28 @@
+name: Build Controle Tester PKG
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: psl1ght/psl1ght:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compilar e gerar PKG
+        run: make pkg
+
+      - name: Enviar PKG como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: ControleTester-pkg
+          path: ControleTester.pkg
+          if-no-files-found: error
+          
